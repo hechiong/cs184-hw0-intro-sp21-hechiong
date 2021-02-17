@@ -95,7 +95,7 @@ class QuadDrawer : public Renderer {
     glTexCoord2f(0.5,0.5);
     glVertex3f(0.5 * c_trans[0], 0.5 * c_trans[1], 0.5 * c_trans[2]);
 
-    glColor3f(1.0, 1.0, 0.0);s
+    glColor3f(1.0, 1.0, 0.0);
     /* TODO: change the (1,0) to (.1,0) to zoom into the texture to see changes. */
     glTexCoord2f(0.5,0);
     glVertex3f(0.5 * d_trans[0], 0.5 * d_trans[1], 0.5 * d_trans[2]);
