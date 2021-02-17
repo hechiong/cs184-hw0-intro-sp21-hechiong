@@ -18,7 +18,7 @@ unsigned int texture;
  * Write your own matrix vector multiplication function. Do not use the built-in CGL function!
  */
 Vector3D mult(Matrix3x3 mat, Vector3D input) {
-    return input; /* TODO */
+    return 1 * mat * input;
 }
 
 class QuadDrawer : public Renderer {
@@ -77,9 +77,9 @@ class QuadDrawer : public Renderer {
   
   void render() {
     glBindTexture(GL_TEXTURE_2D, texture); // Comment this out to disable textures
-    glBegin(GL_QUADS);
+    glBegin(GL_TRIANGLES);
 
-    glColor3f( 1.0, 1.0, 0.0); // Can play with RGB values here :)
+    glColor3f( 1.0, 0.0, 1.0); // Can play with RGB values here :)
 
     Vector3D a_trans = mult(mat, a);
     Vector3D b_trans = mult(mat, b);
@@ -87,16 +87,23 @@ class QuadDrawer : public Renderer {
     Vector3D d_trans = mult(mat, d);
       
     glTexCoord2f(0,0);
-    glVertex3f(a_trans[0], a_trans[1], a_trans[2]);
+    glVertex3f(0.5 * a_trans[0], 0.5 * a_trans[1], 0.5 * a_trans[2]);
     /* TODO: change the (0,1) below to (0,.1) to zoom into the texture to see changes. */
-    glTexCoord2f(0,1);
-    glVertex3f(b_trans[0], b_trans[1], b_trans[2]);
+    glTexCoord2f(0,0.5);
+    glVertex3f(0.5 * b_trans[0], 0.5 * b_trans[1], 0.5 * b_trans[2]);
     /* TODO: change the (1,1) below to (.1,.1) to zoom into the texture to see changes. */
-    glTexCoord2f(1,1);
-    glVertex3f(c_trans[0], c_trans[1], c_trans[2]);
+    glTexCoord2f(0.5,0.5);
+    glVertex3f(0.5 * c_trans[0], 0.5 * c_trans[1], 0.5 * c_trans[2]);
+
+    glColor3f(1.0, 1.0, 0.0);s
     /* TODO: change the (1,0) to (.1,0) to zoom into the texture to see changes. */
-    glTexCoord2f(1,0);
-    glVertex3f(d_trans[0], d_trans[1], d_trans[2]);
+    glTexCoord2f(0.5,0);
+    glVertex3f(0.5 * d_trans[0], 0.5 * d_trans[1], 0.5 * d_trans[2]);
+    glTexCoord2f(0.5, 0);
+    glVertex3f(0.1 * a_trans[0], 0.1 * a_trans[1], 0.1 * a_trans[2]);
+    glTexCoord2f(0.5, 0);
+    glVertex3f(0.8 * b_trans[0], 0.8 * b_trans[1], 0.8 * b_trans[2]);
+
     glDeleteTextures(1, &texture);
     glDisable(GL_TEXTURE_2D);
     glEnd();
